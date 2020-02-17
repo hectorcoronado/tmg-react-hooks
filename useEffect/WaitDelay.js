@@ -41,3 +41,34 @@ function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+/**
+ * tmg solution
+ */
+function Wait ({ delay = 1000, placeholder, ui }) {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setShow(true)
+    }, delay);
+
+    return () => window.clearTimeout(id)
+  }, [delay])
+
+  return show === true
+    ? <p>{ui}</p>
+    : <p>{placeholder}</p>
+}
+
+function App() {
+  return (
+    <div className="App">
+      <Wait 
+        delay={3000}
+        placeholder={<p>Waiting...</p>}
+        ui={<p>This text should appear after 3 seconds.</p>}
+      />
+    </div>
+  );
+}
