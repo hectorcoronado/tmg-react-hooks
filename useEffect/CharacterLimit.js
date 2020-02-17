@@ -49,3 +49,33 @@ const App = () => {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+/**
+ * tmg solution
+ */
+
+const App = () => {
+  const [input, setInput] = React.useState('')
+
+  useEffect(() => {
+    document.title = `${240 - input.length} characters left.`
+  }, [input])
+
+  return (
+    <textarea
+      type='text'
+      value={input}
+      placeholder="type"
+      onChange={e => setInput(e.target.value)}
+      className="App"
+    />
+    <button
+      disabled={input.length === 0 || input.length > 240}
+      onClick={() => console.log(input)}
+    >
+      Submit
+    </button>
+
+    </textareatype='text'>
+  );
+};
