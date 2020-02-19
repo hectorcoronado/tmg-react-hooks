@@ -8,11 +8,11 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [requestError, setRequestError] = useState(false);
   const [post, setPost] = useState(null);
-  const [requestedPost, setRequestedPost] = useState(0);
+  const [requestedPost, setRequestedPost] = useState(1);
 
   const getNextPost = requestedPost => {
     requestedPost === postIds.length - 1
-      ? setRequestedPost(0)
+      ? setRequestedPost(1)
       : setRequestedPost(++requestedPost);
   };
 
@@ -29,7 +29,7 @@ const App = () => {
 
   useEffect(() => {
     fetchPost(requestedPost);
-  }, [post, requestedPost]);
+  }, [requestedPost]);
 
   return (
     <div className="App">
