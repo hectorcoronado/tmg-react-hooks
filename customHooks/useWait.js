@@ -14,7 +14,7 @@ const useWait = (delay = 0) => {
   const [isFinished, setIsFinished] = useState(false)
 
   useEffect(() => {
-    let timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsFinished(true)
     }, delay);
 
@@ -35,6 +35,48 @@ const Wait = ({ delay = 1000, placeholder, ui }) => {
 }
 
 const App = () => {
+  return (
+    <div className="App">
+      <Wait
+        delay={3000}
+        placeholder={<p>Waiting...</p>}
+        ui={<p>This text should appear after 3 seconds.</p>}
+      />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
+/**
+ * tmg solution
+ */
+
+
+function useWait (delay) {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      setShow(true)
+    }, delay)
+    
+    return () => window.clearTimeout(id)
+  }, [delay])
+
+  return show
+}
+
+function Wait({ delay = 1000, placeholder, ui }) {
+  const show = useWait(delay)
+
+  return show === true
+    ? ui
+    : placeholder
+}
+
+function App() {
   return (
     <div className="App">
       <Wait
